@@ -1,7 +1,36 @@
 import React from 'react'
+import { Global } from '@emotion/react'
+import styled from '@emotion/styled'
+import Header from './components/Header'
+
+const Container = styled.div`
+  display: grid;
+  grid-template-rows: 80px 1fr;
+  height: 100vh;
+`
 
 function App() {
-  return <div>test</div>
+  return (
+    <>
+      <Global
+        styles={{
+          html: { boxSizing: 'border-box' },
+          '*': {
+            boxSizing: 'inherit',
+            margin: 0,
+            padding: 0,
+          },
+          body: {
+            fontFamily: 'Nunito Sans, sans-serif',
+            fontSize: '14px',
+          },
+        }}
+      />
+      <Container>
+        <Header />
+      </Container>
+    </>
+  )
 }
 
 export default App
