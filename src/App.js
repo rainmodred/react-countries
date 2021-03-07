@@ -2,6 +2,7 @@ import React from 'react'
 import { Global } from '@emotion/react'
 import styled from '@emotion/styled'
 import Header from './components/Header'
+import Main from './components/Main'
 
 const Container = styled.div`
   display: grid;
@@ -28,6 +29,7 @@ function App() {
       />
       <Container>
         <Header />
+        <Main />
       </Container>
     </>
   )
