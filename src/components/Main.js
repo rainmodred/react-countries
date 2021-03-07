@@ -2,6 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Search from './Search'
 import Filter from './Filter'
+import CountriesList from './CountriesList'
 
 const Container = styled.div`
   background: hsl(0, 0%, 98%);
@@ -9,7 +10,7 @@ const Container = styled.div`
 `
 
 const Content = styled.div`
-  padding: 0 30px;
+  padding: 0 80px;
   max-width: 1440px;
   margin: 0 auto;
 `
@@ -28,6 +29,7 @@ export default function Main() {
           <Search />
           <Filter />
         </SearchBar>
+        <CountriesList />
       </Content>
     </Container>
   )
