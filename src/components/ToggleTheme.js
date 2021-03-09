@@ -10,11 +10,11 @@ const Container = styled.button`
   background: none;
   border: none;
   padding: 5px;
-  font-size: 16px;
+  font-size: 14px;
 `
 
 const Text = styled.span`
-  ${'' /* font-weight: 600; */}
+  font-weight: 600;
 `
 
 export default function ToggleTheme() {

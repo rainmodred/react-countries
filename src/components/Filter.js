@@ -6,7 +6,7 @@ const Select = styled.select`
   border-radius: 4px;
   max-width: 200px;
   width: 100%;
-  padding: 0 25px;
+  padding: 19px 25px;
 `
 
 export default function Filter() {

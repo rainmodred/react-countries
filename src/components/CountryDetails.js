@@ -7,14 +7,18 @@ import styled from '@emotion/styled'
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 560px 1fr;
+  grid-template-columns: 1fr 1fr;
   column-gap: 120px;
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+    row-gap: 50px;
+  }
 `
 
 const CountryLink = styled.a`
   border-radius: 6px;
   padding: 6px 24px;
-  box-shadow: 0 0 7px 0 rgb(0 0 0 / 29%);
+  box-shadow: 0 0 4px 0 rgb(0 0 0 / 29%);
 `
 
 const Column = styled.div`
@@ -52,6 +56,10 @@ export default function CountryDetails() {
             display: 'flex',
             justifyContent: 'space-between',
             marginBottom: '75px',
+            ['@media (max-width: 768px)']: {
+              flexDirection: 'column',
+              gap: '50px',
+            },
           }}
         >
           <Column>
@@ -87,6 +95,9 @@ export default function CountryDetails() {
           css={{
             display: 'flex',
             gap: '10px',
+            ['@media (max-width: 768px)']: {
+              flexDirection: 'column',
+            },
           }}
         >
           <b>Border Countries:</b>

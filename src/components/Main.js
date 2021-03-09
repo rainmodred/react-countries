@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import Search from './Search'
-import Filter from './Filter'
-import CountriesList from './CountriesList'
+import Homepage from '../pages/Homepage'
+// import Search from './Search'
+// import Filter from './Filter'
+// import CountriesList from './CountriesList'
+// import Detail from '../pages/Detail'
 
 const Container = styled.div`
   background: hsl(0, 0%, 98%);
@@ -10,26 +12,20 @@ const Container = styled.div`
 `
 
 const Content = styled.div`
-  padding: 0 80px;
+  padding: 0 80px 20px 80px;
   max-width: 1440px;
   margin: 0 auto;
-`
-
-const SearchBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 45px 0;
+  @media (max-width: 768px) {
+    padding: 0 30px 20px 30px;
+  }
 `
 
 export default function Main() {
   return (
     <Container>
       <Content>
-        <SearchBar>
-          <Search />
-          <Filter />
-        </SearchBar>
-        <CountriesList />
+        <Homepage />
+        {/* <Detail /> */}
       </Content>
     </Container>
   )

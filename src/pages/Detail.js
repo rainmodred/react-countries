@@ -20,6 +20,9 @@ const Button = styled.button`
   width: 136px;
   font-size: 16px;
   margin: 75px 0;
+  @media (max-width: 768px) {
+    margin: 50px 0;
+  }
 `
 
 export default function Detail() {

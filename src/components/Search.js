@@ -4,8 +4,10 @@ import { IoSearchOutline } from 'react-icons/io5'
 
 const InputContainer = styled.div`
   position: relative;
-  max-width: 480px;
   width: 100%;
+  @media (min-width: 769px) {
+    max-width: 480px;
+  }
 `
 
 const Icon = styled.div`
@@ -17,7 +19,7 @@ const Icon = styled.div`
 `
 
 const Input = styled.input`
-  padding: 20px 75px;
+  padding: 20px 10px 20px 75px;
   border: none;
   border-radius: 4px;
   width: 100%;
