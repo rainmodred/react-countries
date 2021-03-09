@@ -8,7 +8,7 @@ const SearchBar = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 45px 0;
-  gap: 30%;
+  gap: 10%;
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 30px;
