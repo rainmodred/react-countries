@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import { IoMoonOutline } from 'react-icons/io5'
+import PropTypes from 'prop-types'
+import { IoMoon, IoMoonOutline } from 'react-icons/io5'
 
-const Container = styled.button`
+const Button = styled.button`
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   cursor: pointer;
   background: none;
   border: none;
@@ -19,11 +20,19 @@ const Text = styled.span`
   font-weight: 600;
 `
 
-export default function ToggleTheme() {
+export default function ToggleTheme({ mode, onModeChange }) {
+  const icon =
+    mode === 'light' ? <IoMoonOutline size="18px" /> : <IoMoon size="18px" />
+
   return (
-    <Container>
-      <IoMoonOutline size="18px" />
+    <Button onClick={onModeChange}>
+      {icon}
       <Text>Dark mode</Text>
-    </Container>
+    </Button>
   )
+}
+
+ToggleTheme.propTypes = {
+  mode: PropTypes.string.isRequired,
+  onModeChange: PropTypes.func.isRequired,
 }

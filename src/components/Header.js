@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import ToggleTheme from './ToggleTheme'
+import PropTypes from 'prop-types'
 
 const Container = styled.div`
-  box-shadow: 0px 10px 5px 0px rgba(248, 248, 248, 1);
+  box-shadow: rgba(0, 0, 0, 0.06) 0px 0.2rem 0.4rem 0px;
+  background: ${({ theme }) => theme.elementBackground};
 `
 
 const Content = styled.div`
@@ -20,18 +22,22 @@ const Content = styled.div`
 `
 
 const HeaderText = styled.span`
-  color: black;
   font-size: 20px;
   font-weight: 800;
 `
 
-export default function Header() {
+export default function Header({ mode, onThemeChange }) {
   return (
     <Container>
       <Content>
         <HeaderText>Where in the world?</HeaderText>
-        <ToggleTheme />
+        <ToggleTheme mode={mode} onModeChange={onThemeChange} />
       </Content>
     </Container>
   )
+}
+
+Header.propTypes = {
+  mode: PropTypes.string.isRequired,
+  onThemeChange: PropTypes.func.isRequired,
 }

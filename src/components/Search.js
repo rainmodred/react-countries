@@ -1,8 +1,11 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import { IoSearchOutline } from 'react-icons/io5'
+import { useTheme } from '@emotion/react'
 
 const InputContainer = styled.div`
+  background: ${({ theme }) => theme.elementBackground};
+  border-radius: 6px;
   position: relative;
   width: 100%;
   @media (min-width: 769px) {
@@ -19,17 +22,20 @@ const Icon = styled.div`
 `
 
 const Input = styled.input`
+  background: inherit;
+  border-radius: 6px;
+  color: inherit;
   padding: 20px 10px 20px 75px;
   border: none;
-  border-radius: 6px;
   width: 100%;
 `
 
 export default function Search() {
+  const theme = useTheme()
   return (
     <InputContainer>
       <Icon>
-        <IoSearchOutline />
+        <IoSearchOutline color={theme.text} />
       </Icon>
       <Input type="search" placeholder="Search for a country..."></Input>
     </InputContainer>

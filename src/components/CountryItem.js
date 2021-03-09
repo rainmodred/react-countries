@@ -8,6 +8,11 @@ const ListItem = styled.li`
   grid-template-rows: 1fr 1fr;
   border-radius: 4px;
   overflow: hidden;
+  cursor: pointer;
+  transition: opacity 400ms ease;
+  &:hover {
+    opacity: 0.8;
+  }
 `
 
 const Image = styled.img`
@@ -17,7 +22,7 @@ const Image = styled.img`
 const ItemData = styled.div`
   width: 100%;
   padding: 25px;
-  background-color: white;
+  background: ${({ theme }) => theme.elementBackground};
 `
 const Header = styled.h3`
   font-size: 18px;

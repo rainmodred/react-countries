@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { IoChevronDownOutline } from 'react-icons/io5'
+import { useTheme } from '@emotion/react'
 
 const Option = styled.li`
   padding: 5px;
@@ -10,27 +11,26 @@ const Option = styled.li`
   &:focus {
     opacity: 0.6;
   }
+  outline-color: ${({ theme }) => `${theme.text}`};
 `
 
 export default function Filter() {
   const [isOpen, setIsOpen] = useState(false)
+  const theme = useTheme()
 
   return (
     <div
       css={{
         display: 'flex',
         alignItems: 'center',
-        background: 'white',
+        background: `${theme.elementBackground}`,
         borderRadius: '6px',
         width: '200px',
         height: '55px',
         justifyContent: 'space-between',
         position: 'relative',
         ':hover': {
-          background: '#DEDEDE',
-        },
-        ':focus': {
-          ouline: '1px solid black',
+          background: `${theme.background}`,
         },
       }}
     >
@@ -39,7 +39,8 @@ export default function Filter() {
         css={{
           padding: '0 25px',
           border: 'none',
-          background: 'none',
+          borderRadius: '6px',
+          background: 'inherit',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -62,16 +63,18 @@ export default function Filter() {
 
       <ul
         css={{
+          borderRadius: '6px',
           display: isOpen ? 'flex' : 'none',
           flexDirection: 'column',
           gap: '10px',
           position: 'absolute',
-          listStyle: 'none',
-          top: '110%',
+          top: '120%',
           left: '0',
           padding: '16px 25px',
-          background: 'white',
+          background: `${theme.elementBackground}`,
           width: '100%',
+          cursor: 'pointer',
+          zIndex: 1,
         }}
       >
         <Option tabIndex="0">lorem</Option>

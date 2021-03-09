@@ -105,7 +105,6 @@ export default function CountryDetails() {
             css={{
               display: 'flex',
               gap: '10px',
-              listStyle: 'none',
             }}
           >
             <li>
