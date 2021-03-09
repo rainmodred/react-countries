@@ -21,7 +21,7 @@ export default function Filter() {
         display: 'flex',
         alignItems: 'center',
         background: 'white',
-        border: '6px',
+        borderRadius: '6px',
         width: '200px',
         height: '55px',
         justifyContent: 'space-between',
@@ -46,6 +46,8 @@ export default function Filter() {
           width: '100%',
           height: '100%',
           cursor: 'pointer',
+          fontFamily: 'inherit',
+          color: 'inherit',
         }}
       >
         <span

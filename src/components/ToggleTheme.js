@@ -11,6 +11,8 @@ const Container = styled.button`
   border: none;
   padding: 5px;
   font-size: 14px;
+  font-family: inherit;
+  color: inherit;
 `
 
 const Text = styled.span`
@@ -20,7 +22,7 @@ const Text = styled.span`
 export default function ToggleTheme() {
   return (
     <Container>
-      <IoMoonOutline />
+      <IoMoonOutline size="18px" />
       <Text>Dark mode</Text>
     </Container>
   )
