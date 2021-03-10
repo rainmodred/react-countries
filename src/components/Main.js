@@ -1,8 +1,12 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom'
 import styled from '@emotion/styled'
 import Homepage from '../pages/Homepage'
-
 import Detail from '../pages/Detail'
 
 const Content = styled.div`
@@ -24,6 +28,9 @@ function AppRoutes() {
         </Route>
         <Route exact path="/detail/:id">
           <Detail />
+        </Route>
+        <Route exact path="*">
+          <Redirect to="/" />
         </Route>
       </Switch>
     </Router>

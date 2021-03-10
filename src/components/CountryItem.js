@@ -19,6 +19,7 @@ const StyledLink = styled(Link)`
 
 const Image = styled.img`
   width: 100%;
+  height: 100%;
 `
 
 const ItemData = styled.div`
@@ -37,23 +38,29 @@ const Text = styled.p`
   }
 `
 
-export default function CountryItem({ name, population, region, capital }) {
-  const path = `detail/${name}`
-  // TODO: IMG
+export default function CountryItem({
+  name,
+  code,
+  population,
+  region,
+  capital,
+  flag,
+}) {
+  const path = `detail/${code}`
+
   return (
     <StyledLink to={path}>
-      <Image src="https://restcountries.eu/data/afg.svg"></Image>
+      <Image src={flag}></Image>
       <ItemData>
         <Header>{name}</Header>
         <Text>
-          <b> Population:</b> {population}
+          <b>Population:</b> {population}
         </Text>
         <Text>
           <b>Region:</b> {region}
         </Text>
         <Text>
-          <b> Capital:</b>
-          {capital}
+          <b>Capital:</b> {capital}
         </Text>
       </ItemData>
     </StyledLink>
@@ -62,7 +69,9 @@ export default function CountryItem({ name, population, region, capital }) {
 
 CountryItem.propTypes = {
   name: PropTypes.string.isRequired,
+  code: PropTypes.string.isRequired,
   population: PropTypes.number.isRequired,
   region: PropTypes.string.isRequired,
   capital: PropTypes.string.isRequired,
+  flag: PropTypes.string.isRequired,
 }

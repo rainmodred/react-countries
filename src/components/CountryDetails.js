@@ -4,11 +4,12 @@ import { jsx } from '@emotion/react'
 import { Link } from 'react-router-dom'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 120px;
   @media (max-width: 1100px) {
     grid-template-columns: 1fr;
@@ -20,6 +21,7 @@ const CountryLink = styled(Link)`
   border-radius: 6px;
   padding: 6px 24px;
   box-shadow: 0 0 4px 0 rgb(0 0 0 / 29%);
+  white-space: nowrap;
 `
 
 const Column = styled.div`
@@ -28,14 +30,27 @@ const Column = styled.div`
   row-gap: 10px;
 `
 
-export default function CountryDetails() {
+export default function CountryDetails({
+  name,
+  nativeName,
+  flag,
+  population,
+  region,
+  subregion,
+  capital,
+  topLevelDomain,
+  currencies,
+  languages,
+  borders,
+}) {
+  console.log(borders)
   return (
     <Container>
       <img
         css={{
           maxWidth: '100%',
         }}
-        src="https://restcountries.eu/data/afg.svg"
+        src={flag}
       ></img>
       <div
         css={{
@@ -50,7 +65,7 @@ export default function CountryDetails() {
             marginBottom: '35px',
           }}
         >
-          Name
+          {name}
         </h3>
         <div
           css={{
@@ -65,30 +80,38 @@ export default function CountryDetails() {
         >
           <Column>
             <p>
-              <b>Native Name: </b>name
+              <b>Native Name: </b>
+              {nativeName}
             </p>
             <p>
-              <b>Population: </b>11111
+              <b>Population: </b>
+              {population}
             </p>
             <p>
-              <b>Region: </b>saddad
+              <b>Region: </b>
+              {region}
             </p>
             <p>
-              <b>Sub Region: </b>dasdad
+              <b>Sub Region: </b>
+              {subregion}
             </p>
             <p>
-              <b>Capital: </b>fgdfdf
+              <b>Capital: </b>
+              {capital}
             </p>
           </Column>
           <Column>
             <p>
-              <b>Top Level Domain: </b>.dsad
+              <b>Top Level Domain: </b>
+              {topLevelDomain.join(', ')}
             </p>
             <p>
-              <b>Currencies: </b>ssss
+              <b>Currencies: </b>
+              {currencies.map(({ name }) => name).join(', ')}
             </p>
             <p>
-              <b>Languages: </b>dsdad
+              <b>Languages: </b>
+              {languages.map(({ name }) => name).join(', ')}
             </p>
           </Column>
         </div>
@@ -96,30 +119,67 @@ export default function CountryDetails() {
           css={{
             display: 'flex',
             gap: '10px',
-            ['@media (max-width: 768px)']: {
+            '@media (max-width: 768px)': {
               flexDirection: 'column',
             },
           }}
         >
-          <b>Border Countries:</b>
+          <b
+            css={{
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Border Countries:
+          </b>
           <ul
             css={{
               display: 'flex',
-              gap: '10px',
+              gap: '20px 10px',
+              flexWrap: 'wrap',
             }}
           >
-            <li>
-              <CountryLink to="">France</CountryLink>
-            </li>
-            <li>
-              <CountryLink to="">Germany</CountryLink>
-            </li>
-            <li>
-              <CountryLink to="">dasdad</CountryLink>
-            </li>
+            {borders.map(({ name, code }) => {
+              return (
+                <li key={code}>
+                  <CountryLink to={`/detail/${code}`}>{name}</CountryLink>
+                </li>
+              )
+            })}
           </ul>
         </div>
       </div>
     </Container>
   )
+}
+
+CountryDetails.propTypes = {
+  name: PropTypes.string.isRequired,
+  nativeName: PropTypes.string.isRequired,
+  flag: PropTypes.string.isRequired,
+  population: PropTypes.number.isRequired,
+  region: PropTypes.string.isRequired,
+  subregion: PropTypes.string.isRequired,
+  capital: PropTypes.string.isRequired,
+  topLevelDomain: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  currencies: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      symbol: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  languages: PropTypes.arrayOf(
+    PropTypes.shape({
+      iso639_1: PropTypes.string.isRequired,
+      iso639_2: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      nativeName: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  borders: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      code: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
 }

@@ -4,6 +4,7 @@ import Search from '../components/Search'
 import Filter from '../components/Filter'
 import CountriesList from '../components/CountriesList'
 import Api from '../api'
+import ErrorFallback from '../components/ErrorFallback'
 
 const SearchBar = styled.div`
   display: flex;
@@ -19,10 +20,16 @@ const SearchBar = styled.div`
 const REGIONS = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania']
 
 export default function Homepage() {
-  const [countries, setCountries] = useState([])
+  // TODO: useAsync hook
+  const [state, setState] = useState({
+    status: 'pending',
+    countries: [],
+    error: null,
+  })
+  const { status, countries, error } = state
+
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('')
-  console.log(search, filter)
 
   function filterByRegion() {
     if (filter === '') {
@@ -38,8 +45,14 @@ export default function Homepage() {
   )
 
   useEffect(() => {
-    setCountries(Api.getAllCountries())
-    console.log(countries)
+    Api.getAllCountries().then(
+      countries => {
+        setState({ status: 'resolved', countries })
+      },
+      error => {
+        setState({ status: 'rejected', error })
+      },
+    )
   }, [])
   return (
     <>
@@ -51,6 +64,13 @@ export default function Homepage() {
           options={REGIONS}
         />
       </SearchBar>
+      {status === 'pending' && <p>loading...</p>}
+      {status === 'rejected' ? (
+        <ErrorFallback error={error}></ErrorFallback>
+      ) : (
+        <CountriesList countries={filteredBySearch} />
+      )}
+
       <CountriesList countries={filteredBySearch} />
     </>
   )

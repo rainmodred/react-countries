@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import { Link, useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { IoArrowBackOutline } from 'react-icons/io5'
+import Api from '../api'
 import CountryDetails from '../components/CountryDetails'
+import ErrorFallback from '../components/ErrorFallback'
 
 const Container = styled.div`
   font-size: 16px;
@@ -27,14 +30,90 @@ const StyledLink = styled(Link)`
 
 export default function Detail() {
   const { id } = useParams()
-  console.log(id)
-  return (
-    <Container>
-      <StyledLink to="/">
-        <IoArrowBackOutline></IoArrowBackOutline>
-        Back
-      </StyledLink>
-      <CountryDetails />
-    </Container>
-  )
+
+  const [state, setState] = useState({
+    status: 'pending',
+    country: null,
+    error: null,
+  })
+
+  const { status, country, error } = state
+
+  useEffect(() => {
+    Api.getCountryByCode(id).then(
+      country => {
+        const { borders } = country
+        Promise.all(borders.map(border => Api.getCountryByCode(border))).then(
+          countries => {
+            setState({
+              status: 'resolved',
+              country: {
+                ...country,
+                borders: countries.map(c => ({
+                  name: c.name,
+                  code: c.alpha3Code,
+                })),
+              },
+            })
+          },
+        )
+      },
+      error => setState({ status: 'rejected', error }),
+    )
+  }, [id])
+
+  if (status === 'pending') {
+    return <p>loading...</p>
+  }
+
+  if (status === 'rejected') {
+    return (
+      <Container>
+        <StyledLink to="/">
+          <IoArrowBackOutline></IoArrowBackOutline>
+          Back
+        </StyledLink>
+        <ErrorFallback error={error}></ErrorFallback>
+      </Container>
+    )
+  }
+
+  if (status === 'resolved') {
+    const {
+      name,
+      nativeName,
+      flag,
+      population,
+      region,
+      subregion,
+      capital,
+      topLevelDomain,
+      currencies,
+      languages,
+      borders,
+    } = country
+    return (
+      <Container>
+        <StyledLink to="/">
+          <IoArrowBackOutline></IoArrowBackOutline>
+          Back
+        </StyledLink>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <CountryDetails
+            name={name}
+            nativeName={nativeName}
+            flag={flag}
+            population={population}
+            region={region}
+            subregion={subregion}
+            capital={capital}
+            topLevelDomain={topLevelDomain}
+            currencies={currencies}
+            languages={languages}
+            borders={borders}
+          />
+        </ErrorBoundary>
+      </Container>
+    )
+  }
 }
