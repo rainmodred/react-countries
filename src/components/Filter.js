@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 // eslint-disable-next-line
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { IoChevronDownOutline } from 'react-icons/io5'
 import { useTheme } from '@emotion/react'
@@ -14,9 +15,14 @@ const Option = styled.li`
   outline-color: ${({ theme }) => `${theme.text}`};
 `
 
-export default function Filter() {
+export default function Filter({ filter, options, onFilterChange }) {
   const [isOpen, setIsOpen] = useState(false)
   const theme = useTheme()
+
+  function handleFilterChange(option) {
+    setIsOpen(false)
+    onFilterChange(option)
+  }
 
   return (
     <div
@@ -56,7 +62,7 @@ export default function Filter() {
             whiteSpace: 'nowrap',
           }}
         >
-          Filter by Region
+          {filter}
         </span>
         <IoChevronDownOutline size="18px" />
       </button>
@@ -77,13 +83,22 @@ export default function Filter() {
           zIndex: 1,
         }}
       >
-        <Option tabIndex="0">lorem</Option>
-        <Option tabIndex="0">lorem</Option>
-        <Option tabIndex="0">lorem</Option>
-        <Option tabIndex="0">lorem</Option>
-        <Option tabIndex="0">lorem</Option>
-        <Option tabIndex="0">lorem</Option>
+        {options.map(option => (
+          <Option
+            onClick={() => handleFilterChange(option)}
+            key={option}
+            tabIndex="0"
+          >
+            {option}
+          </Option>
+        ))}
       </ul>
     </div>
   )
+}
+
+Filter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
 }

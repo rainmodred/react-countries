@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { IoSearchOutline } from 'react-icons/io5'
 import { useTheme } from '@emotion/react'
@@ -30,14 +31,22 @@ const Input = styled.input`
   width: 100%;
 `
 
-export default function Search() {
+export default function Search({ onSearchChange }) {
   const theme = useTheme()
   return (
     <InputContainer>
       <Icon>
         <IoSearchOutline color={theme.text} />
       </Icon>
-      <Input type="search" placeholder="Search for a country..."></Input>
+      <Input
+        onChange={event => onSearchChange(event.target.value.toLowerCase())}
+        type="search"
+        placeholder="Search for a country..."
+      ></Input>
     </InputContainer>
   )
+}
+
+Search.propTypes = {
+  onSearchChange: PropTypes.func.isRequired,
 }
