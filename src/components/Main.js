@@ -9,6 +9,7 @@ const Content = styled.div`
   padding: 0 80px 20px 80px;
   max-width: 1440px;
   margin: 0 auto;
+  width: 100%;
   @media (max-width: 768px) {
     padding: 0 30px 20px 30px;
   }
