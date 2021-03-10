@@ -1,7 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 
-const ListItem = styled.li`
+const StyledLink = styled(Link)`
   max-width: 263px;
   width: 100%;
   display: grid;
@@ -35,16 +37,32 @@ const Text = styled.p`
   }
 `
 
-export default function CountryItem() {
+export default function CountryItem({ name, population, region, capital }) {
+  const path = `detail/${name}`
+  // TODO: IMG
   return (
-    <ListItem>
+    <StyledLink to={path}>
       <Image src="https://restcountries.eu/data/afg.svg"></Image>
       <ItemData>
-        <Header>Name</Header>
-        <Text>Population: 0</Text>
-        <Text>Region: </Text>
-        <Text>Capital: </Text>
+        <Header>{name}</Header>
+        <Text>
+          <b> Population:</b> {population}
+        </Text>
+        <Text>
+          <b>Region:</b> {region}
+        </Text>
+        <Text>
+          <b> Capital:</b>
+          {capital}
+        </Text>
       </ItemData>
-    </ListItem>
+    </StyledLink>
   )
+}
+
+CountryItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  population: PropTypes.number.isRequired,
+  region: PropTypes.string.isRequired,
+  capital: PropTypes.string.isRequired,
 }

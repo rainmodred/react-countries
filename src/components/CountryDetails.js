@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 // eslint-disable-next-line
 import { jsx } from '@emotion/react'
+import { Link } from 'react-router-dom'
 
 import React from 'react'
 import styled from '@emotion/styled'
@@ -15,7 +16,7 @@ const Container = styled.div`
   }
 `
 
-const CountryLink = styled.a`
+const CountryLink = styled(Link)`
   border-radius: 6px;
   padding: 6px 24px;
   box-shadow: 0 0 4px 0 rgb(0 0 0 / 29%);
@@ -45,7 +46,7 @@ export default function CountryDetails() {
       >
         <h3
           css={{
-            fontSize: '18px',
+            fontSize: '24px',
             marginBottom: '35px',
           }}
         >
@@ -108,13 +109,13 @@ export default function CountryDetails() {
             }}
           >
             <li>
-              <CountryLink href="">France</CountryLink>
+              <CountryLink to="">France</CountryLink>
             </li>
             <li>
-              <CountryLink href="">Germany</CountryLink>
+              <CountryLink to="">Germany</CountryLink>
             </li>
             <li>
-              <CountryLink href="">dasdad</CountryLink>
+              <CountryLink to="">dasdad</CountryLink>
             </li>
           </ul>
         </div>

@@ -1,8 +1,9 @@
 import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import styled from '@emotion/styled'
 import Homepage from '../pages/Homepage'
 
-// import Detail from '../pages/Detail'
+import Detail from '../pages/Detail'
 
 const Content = styled.div`
   padding: 0 80px 20px 80px;
@@ -13,11 +14,25 @@ const Content = styled.div`
   }
 `
 
+function AppRoutes() {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Homepage />
+        </Route>
+        <Route exact path="/detail/:id">
+          <Detail />
+        </Route>
+      </Switch>
+    </Router>
+  )
+}
+
 export default function Main() {
   return (
     <Content>
-      <Homepage />
-      {/* <Detail /> */}
+      <AppRoutes />
     </Content>
   )
 }
