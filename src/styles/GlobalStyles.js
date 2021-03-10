@@ -34,6 +34,10 @@ export default function GlobalStyles() {
           list-style: none;
         }
 
+        a {
+          text-decoration: none;
+        }
+
         button,
         a {
           background: ${theme.elementBackground};
