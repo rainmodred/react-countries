@@ -8,8 +8,7 @@ import { useTheme } from '@emotion/react'
 
 const Option = styled.li`
   padding: 5px;
-  &:hover,
-  &:focus {
+  &:hover {
     opacity: 0.6;
   }
   outline-color: ${({ theme }) => `${theme.text}`};
