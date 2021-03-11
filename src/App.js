@@ -12,7 +12,6 @@ const Container = styled.div`
   grid-template-rows: 80px 1fr;
   row-gap: 5px;
   height: 100%;
-  background: ${({ theme }) => theme.background};
 `
 
 function App() {
