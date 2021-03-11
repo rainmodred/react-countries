@@ -4,13 +4,15 @@ import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
 import { formatNumber } from '../utils'
 
-const StyledLink = styled(Link)`
-  max-width: 263px;
-  width: 100%;
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  border-radius: 4px;
+const StyledLi = styled.li`
+  background: ${({ theme }) => theme.elementBackground};
+  border-radius: 6px;
   overflow: hidden;
+`
+
+const StyledLink = styled(Link)`
+  display: grid;
+  grid-template-rows: 160px auto;
   cursor: pointer;
   transition: opacity 400ms ease;
   &:hover {
@@ -21,12 +23,13 @@ const StyledLink = styled(Link)`
 const Image = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center;
 `
 
 const ItemData = styled.div`
   width: 100%;
   padding: 25px;
-  background: ${({ theme }) => theme.elementBackground};
 `
 const Header = styled.h3`
   font-size: 18px;
@@ -50,21 +53,23 @@ export default function CountryItem({
   const path = `detail/${code}`
 
   return (
-    <StyledLink to={path}>
-      <Image src={flag} loading="lazy"></Image>
-      <ItemData>
-        <Header>{name}</Header>
-        <Text>
-          <b>Population:</b> {formatNumber(population)}
-        </Text>
-        <Text>
-          <b>Region:</b> {region}
-        </Text>
-        <Text>
-          <b>Capital:</b> {capital}
-        </Text>
-      </ItemData>
-    </StyledLink>
+    <StyledLi>
+      <StyledLink to={path}>
+        <Image src={flag} loading="lazy" />
+        <ItemData>
+          <Header>{name}</Header>
+          <Text>
+            <b>Population:</b> {formatNumber(population)}
+          </Text>
+          <Text>
+            <b>Region:</b> {region}
+          </Text>
+          <Text>
+            <b>Capital:</b> {capital}
+          </Text>
+        </ItemData>
+      </StyledLink>
+    </StyledLi>
   )
 }
 

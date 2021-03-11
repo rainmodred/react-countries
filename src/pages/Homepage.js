@@ -70,8 +70,6 @@ export default function Homepage() {
       ) : (
         <CountriesList countries={filteredBySearch} />
       )}
-
-      <CountriesList countries={filteredBySearch} />
     </>
   )
 }
