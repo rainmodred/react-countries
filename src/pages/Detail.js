@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Link, useParams } from 'react-router-dom'
 import styled from '@emotion/styled'
@@ -27,6 +28,22 @@ const StyledLink = styled(Link)`
     margin: 50px 0;
   }
 `
+
+function Wrapper({ children }) {
+  return (
+    <Container>
+      <StyledLink to="/">
+        <IoArrowBackOutline></IoArrowBackOutline>
+        Back
+      </StyledLink>
+      {children}
+    </Container>
+  )
+}
+
+Wrapper.propTypes = {
+  children: PropTypes.element.isRequired,
+}
 
 export default function Detail() {
   const { id } = useParams()
@@ -63,18 +80,18 @@ export default function Detail() {
   }, [id])
 
   if (status === 'pending') {
-    return <p>loading...</p>
+    return (
+      <Wrapper>
+        <p>loading...</p>
+      </Wrapper>
+    )
   }
 
   if (status === 'rejected') {
     return (
-      <Container>
-        <StyledLink to="/">
-          <IoArrowBackOutline></IoArrowBackOutline>
-          Back
-        </StyledLink>
+      <Wrapper>
         <ErrorFallback error={error}></ErrorFallback>
-      </Container>
+      </Wrapper>
     )
   }
 
@@ -93,11 +110,7 @@ export default function Detail() {
       borders,
     } = country
     return (
-      <Container>
-        <StyledLink to="/">
-          <IoArrowBackOutline></IoArrowBackOutline>
-          Back
-        </StyledLink>
+      <Wrapper>
         <ErrorBoundary FallbackComponent={ErrorFallback}>
           <CountryDetails
             name={name}
@@ -113,7 +126,7 @@ export default function Detail() {
             borders={borders}
           />
         </ErrorBoundary>
-      </Container>
+      </Wrapper>
     )
   }
 }

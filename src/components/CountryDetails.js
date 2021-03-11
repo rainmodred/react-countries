@@ -163,11 +163,9 @@ CountryDetails.propTypes = {
   topLevelDomain: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currencies: PropTypes.arrayOf(
     PropTypes.shape({
-      code: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      symbol: PropTypes.string.isRequired,
     }),
-  ).isRequired,
+  ),
   languages: PropTypes.arrayOf(
     PropTypes.shape({
       iso639_1: PropTypes.string.isRequired,
