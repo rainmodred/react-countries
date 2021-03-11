@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import styled from '@emotion/styled'
+import { formatNumber } from '../utils'
 
 const StyledLink = styled(Link)`
   max-width: 263px;
@@ -54,7 +55,7 @@ export default function CountryItem({
       <ItemData>
         <Header>{name}</Header>
         <Text>
-          <b>Population:</b> {population}
+          <b>Population:</b> {formatNumber(population)}
         </Text>
         <Text>
           <b>Region:</b> {region}

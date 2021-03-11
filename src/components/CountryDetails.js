@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
+import { formatNumber } from '../utils'
 
 const Container = styled.div`
   display: grid;
@@ -43,7 +44,6 @@ export default function CountryDetails({
   languages,
   borders,
 }) {
-  console.log(borders)
   return (
     <Container>
       <img
@@ -85,7 +85,7 @@ export default function CountryDetails({
             </p>
             <p>
               <b>Population: </b>
-              {population}
+              {formatNumber(population)}
             </p>
             <p>
               <b>Region: </b>
