@@ -51,7 +51,7 @@ export default function CountryItem({
 
   return (
     <StyledLink to={path}>
-      <Image src={flag}></Image>
+      <Image src={flag} loading="lazy"></Image>
       <ItemData>
         <Header>{name}</Header>
         <Text>
