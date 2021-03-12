@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+// eslint-disable-next-line
 import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import Search from '../components/Search'
@@ -5,6 +7,7 @@ import Filter from '../components/Filter'
 import CountriesList from '../components/CountriesList'
 import Api from '../api'
 import ErrorFallback from '../components/ErrorFallback'
+import { Spinner } from '../components/Spinner'
 
 const SearchBar = styled.div`
   display: flex;
@@ -64,7 +67,16 @@ export default function Homepage() {
           options={REGIONS}
         />
       </SearchBar>
-      {status === 'pending' && <p>loading...</p>}
+      {status === 'pending' && (
+        <div
+          css={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Spinner></Spinner>
+        </div>
+      )}
       {status === 'rejected' ? (
         <ErrorFallback error={error}></ErrorFallback>
       ) : (

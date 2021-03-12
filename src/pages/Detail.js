@@ -1,3 +1,7 @@
+/** @jsxImportSource @emotion/react */
+// eslint-disable-next-line
+import { jsx } from '@emotion/react'
+
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { ErrorBoundary } from 'react-error-boundary'
@@ -7,6 +11,7 @@ import { IoArrowBackOutline } from 'react-icons/io5'
 import Api from '../api'
 import CountryDetails from '../components/CountryDetails'
 import ErrorFallback from '../components/ErrorFallback'
+import { Spinner } from '../components/Spinner'
 
 const Container = styled.div`
   font-size: 16px;
@@ -36,7 +41,14 @@ function Wrapper({ children }) {
         <IoArrowBackOutline></IoArrowBackOutline>
         Back
       </StyledLink>
-      {children}
+      <div
+        css={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        {children}
+      </div>
     </Container>
   )
 }
@@ -82,7 +94,7 @@ export default function Detail() {
   if (status === 'pending') {
     return (
       <Wrapper>
-        <p>loading...</p>
+        <Spinner />
       </Wrapper>
     )
   }
