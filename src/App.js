@@ -1,4 +1,6 @@
 import React from 'react'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { ThemeProvider } from '@emotion/react'
 import styled from '@emotion/styled'
 import Header from './components/Header'
@@ -13,18 +15,28 @@ const Container = styled.div`
   row-gap: 5px;
   height: 100%;
 `
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 function App() {
   const [mode, seMode] = useDarkMode()
 
   return (
-    <ThemeProvider theme={mode === 'light' ? lightTheme : darkTheme}>
-      <GlobalStyles />
-      <Container>
-        <Header mode={mode} onThemeChange={seMode} />
-        <Main />
-      </Container>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={mode === 'light' ? lightTheme : darkTheme}>
+        <GlobalStyles />
+        <Container>
+          <Header mode={mode} onThemeChange={seMode} />
+          <Main />
+        </Container>
+      </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   )
 }
 

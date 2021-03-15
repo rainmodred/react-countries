@@ -5,9 +5,9 @@ import styled from '@emotion/styled'
 import Search from '../components/Search'
 import Filter from '../components/Filter'
 import CountriesList from '../components/CountriesList'
-import Api from '../api'
 import ErrorFallback from '../components/ErrorFallback'
 import { Spinner } from '../components/Spinner'
+import { useCountries } from '../hooks/queryHooks'
 
 const SearchBar = styled.div`
   display: flex;
@@ -23,13 +23,7 @@ const SearchBar = styled.div`
 const REGIONS = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania']
 
 export default function Homepage() {
-  // TODO: useAsync hook
-  const [state, setState] = useState({
-    status: 'pending',
-    countries: [],
-    error: null,
-  })
-  const { status, countries, error } = state
+  const { isLoading, isError, error, countries } = useCountries()
 
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('')
@@ -43,20 +37,11 @@ export default function Homepage() {
   }
 
   const filteredCountries = filterByRegion()
-  const filteredBySearch = filteredCountries.filter(({ name }) =>
-    name.toLowerCase().includes(search),
-  )
+  const filteredBySearch =
+    filteredCountries?.filter(({ name }) =>
+      name.toLowerCase().includes(search),
+    ) || []
 
-  useEffect(() => {
-    Api.getAllCountries().then(
-      countries => {
-        setState({ status: 'resolved', countries })
-      },
-      error => {
-        setState({ status: 'rejected', error })
-      },
-    )
-  }, [])
   return (
     <>
       <SearchBar>
@@ -67,7 +52,7 @@ export default function Homepage() {
           options={REGIONS}
         />
       </SearchBar>
-      {status === 'pending' && (
+      {isLoading && (
         <div
           css={{
             display: 'flex',
@@ -77,7 +62,7 @@ export default function Homepage() {
           <Spinner></Spinner>
         </div>
       )}
-      {status === 'rejected' ? (
+      {isError ? (
         <ErrorFallback error={error}></ErrorFallback>
       ) : (
         <CountriesList countries={filteredBySearch} />
