@@ -1,103 +1,67 @@
 /** @jsxImportSource @emotion/react */
 // eslint-disable-next-line
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import styled from '@emotion/styled'
 import { IoChevronDownOutline } from 'react-icons/io5'
 import { useTheme } from '@emotion/react'
+import {
+  ListboxButton,
+  ListboxInput,
+  ListboxList,
+  ListboxOption,
+  ListboxPopover,
+} from '@reach/listbox'
+import '@reach/listbox/styles.css'
 
-const Option = styled.li`
-  padding: 5px;
-  &:hover {
-    opacity: 0.6;
-  }
-  outline-color: ${({ theme }) => `${theme.text}`};
-`
-
-export default function Filter({ filter, options, onFilterChange }) {
-  const [isOpen, setIsOpen] = useState(false)
+export default function Filter({ defaultValue, options, onFilterChange }) {
   const theme = useTheme()
 
-  function handleFilterChange(option) {
-    setIsOpen(false)
-    onFilterChange(option)
-  }
-
   return (
-    <div
+    <ListboxInput
+      aria-labelledby="my-label"
+      defaultValue="all"
+      onChange={filter => onFilterChange(filter)}
       css={{
-        display: 'flex',
-        alignItems: 'center',
-        background: `${theme.elementBackground}`,
-        borderRadius: '6px',
         width: '200px',
         height: '55px',
-        justifyContent: 'space-between',
-        position: 'relative',
-        ':hover': {
-          background: `${theme.background}`,
-        },
+        background: `${theme.elementBackground}`,
+        borderRadius: '6px',
       }}
     >
-      <button
-        onClick={() => setIsOpen(!isOpen)}
+      <ListboxButton
         css={{
-          padding: '0 25px',
+          display: 'flex',
+          height: '100%',
           border: 'none',
           borderRadius: '6px',
-          background: 'inherit',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
-          height: '100%',
-          cursor: 'pointer',
-          fontFamily: 'inherit',
-          color: 'inherit',
+          padding: '22px',
         }}
-      >
-        <span
-          css={{
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {filter}
-        </span>
-        <IoChevronDownOutline size="18px" />
-      </button>
+        arrow={<IoChevronDownOutline size="16px" />}
+      />
 
-      <ul
+      <ListboxPopover
         css={{
+          marginTop: '10px',
           borderRadius: '6px',
-          display: isOpen ? 'flex' : 'none',
-          flexDirection: 'column',
-          gap: '10px',
-          position: 'absolute',
-          top: '120%',
-          left: '0',
-          padding: '16px 25px',
           background: `${theme.elementBackground}`,
-          width: '100%',
           cursor: 'pointer',
-          zIndex: 1,
         }}
       >
-        {options.map(option => (
-          <Option
-            onClick={() => handleFilterChange(option)}
-            key={option}
-            tabIndex="0"
-          >
-            {option}
-          </Option>
-        ))}
-      </ul>
-    </div>
+        <ListboxList>
+          <ListboxOption value="all">{defaultValue}</ListboxOption>
+          {options.map(option => (
+            <ListboxOption value={option} key={option}>
+              {option}
+            </ListboxOption>
+          ))}
+        </ListboxList>
+      </ListboxPopover>
+    </ListboxInput>
   )
 }
 
 Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string.isRequired,
   onFilterChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
 }

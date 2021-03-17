@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 // eslint-disable-next-line
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import Search from '../components/Search'
 import Filter from '../components/Filter'
@@ -29,11 +29,11 @@ export default function Homepage() {
   const [filter, setFilter] = useState('')
 
   function filterByRegion() {
-    if (filter === '') {
+    if (filter === '' || filter === 'all') {
       return countries
     }
-
-    return countries.filter(({ region }) => region === filter)
+    console.log(filter)
+    return countries?.filter(({ region }) => region === filter)
   }
 
   const filteredCountries = filterByRegion()
@@ -47,7 +47,7 @@ export default function Homepage() {
       <SearchBar>
         <Search onSearchChange={setSearch} />
         <Filter
-          filter={filter === '' ? 'Filter by Region' : filter}
+          defaultValue={'Filter by Region'}
           onFilterChange={setFilter}
           options={REGIONS}
         />
