@@ -51,6 +51,7 @@ export default function CountryDetails({
           maxWidth: '100%',
         }}
         src={flag}
+        alt={`Flag of ${name}`}
       ></img>
       <div
         css={{

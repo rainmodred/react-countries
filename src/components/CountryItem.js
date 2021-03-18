@@ -55,7 +55,7 @@ export default function CountryItem({
   return (
     <StyledLi>
       <StyledLink to={path}>
-        <Image src={flag} loading="lazy" />
+        <Image src={flag} loading="lazy" alt={`Flag of ${name}`} />
         <ItemData>
           <Header>{name}</Header>
           <Text>

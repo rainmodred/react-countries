@@ -42,6 +42,7 @@ export default function Search({ onSearchChange }) {
         onChange={event => onSearchChange(event.target.value.toLowerCase())}
         type="search"
         placeholder="Search for a country..."
+        aria-label="Search"
       ></Input>
     </InputContainer>
   )
