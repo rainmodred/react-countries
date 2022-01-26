@@ -1,4 +1,4 @@
-const apiURL = 'https://restcountries.eu/rest/v2'
+const apiURL = 'https://restcountries.com/v2/'
 
 async function client(endpoint) {
   return window.fetch(`${apiURL}/${endpoint}`).then(async response => {
