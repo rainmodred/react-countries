@@ -78,6 +78,6 @@ CountryItem.propTypes = {
   code: PropTypes.string.isRequired,
   population: PropTypes.number.isRequired,
   region: PropTypes.string.isRequired,
-  capital: PropTypes.string.isRequired,
+  capital: PropTypes.string,
   flag: PropTypes.string.isRequired,
 }
